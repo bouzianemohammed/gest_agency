@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="javascript:void(0)" onclick="toggleSidebar('recouvrement')">Recouvrement</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('vente')">Vente</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('entreprise')">Gestion Entreprise</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('compteur')">Gestion Compteur</a>
+        </div>
+    </div>
+
+    <!-- Mise à jour Section -->
+    <div class="update-section">
+        <h3 onclick="toggleUpdateForm()">Mise à jour (Remplacer les données)</h3>
+        <div id="update-form" class="upload-container">
+            <form id="uploadForm" action="/update-reference" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+                <button type="submit">Mettre à jour</button>
+            </form>
+            <div id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- Gestion Coupure Section -->
+    <div class="update-section">
+        <h3>Gestion Coupure (Recouvrement)</h3>
+        <div class="upload-container">
+            <form id="creanceForm" action="/process-creance" method="post" enctype="multipart/form-data">
+                <input type="file" name="files" accept=".xlsx,.xls,.csv" multiple required>
+                <button type="submit">Traiter les fichiers</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIDEBARS -->
+    <div id="sidebar-recouvrement" class="sidebar">
+        <h3>Recouvrement</h3>
+        <ul>
+            <li><a href="#">Gestion Coupure</a></li>
+            <li><a href="#">PCX</a></li>
+            <li><a href="#">Évolution Solde</a></li>
+        </ul>
+    </div>
+
+    <div id="sidebar-vente" class="sidebar">
+        <h3>Vente</h3>
+        <ul>
+            <li><a href="#">Traitement signal</a></li>
+            <li><a href="#">Traitement du groupe</a></li>
+            <li><a href="#">Historique</a></li>
+        </ul>
+    </div>
+
+    <div id="sidebar-entreprise" class="sidebar">
+        <h3>Gestion des entreprises</h3>
+        <ul>
+            <li><a href="#">Analyse</a></li>
+            <li><a href="#">Filtrage</a></li>
+            <li><a href="#">Détection</a></li>
+        </ul>
+    </div>
+
+    <div id="sidebar-compteur" class="sidebar">
+        <h3>Gestion des compteurs</h3>
+        <ul>
+            <li><a href="#">Entrée</a></li>
+            <li><a href="#">Sortie</a></li>
+            <li><a href="#">Retour</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+        <h1>Bienvenue à l'application de gestion</h1>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

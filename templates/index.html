@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="javascript:void(0)" onclick="toggleSidebar('recouvrement')">Recouvrement</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('vente')">Vente</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('entreprise')">Gestion Entreprise</a>
+            <a href="javascript:void(0)" onclick="toggleSidebar('compteur')">Gestion Compteur</a>
+            <a href="javascript:void(0)" onclick="toggleMiseAJour()">Mise à jour</a>
+        </div>
+    </div>
+
+    <!-- SIDEBARS -->
+    <div id="sidebar-recouvrement" class="sidebar">
+        <h3>Recouvrement</h3>
+        <ul>
+            <li><a href="javascript:void(0)" onclick="toggleGestionCoupure()">Gestion Coupure</a></li>
+            <li><a href="#">PCX</a></li>
+            <li><a href="#">Évolution Solde</a></li>
+        </ul>
+    </div>
+
+    <!-- ... (other sidebars remain the same) ... -->
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+        <!-- Mise à jour Section -->
+        <div id="mise-a-jour-section" class="section-container" style="display: none;">
+            <h2>Mise à jour des données</h2>
+            <div class="upload-container">
+                <form id="uploadForm" action="/update-reference" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="referenceFile">Sélectionner fichier référence:</label>
+                        <input type="file" id="referenceFile" name="file" accept=".xlsx,.xls" required>
+                    </div>
+                    <button type="submit" class="btn-process">
+                        <span class="btn-text">Mettre à jour</span>
+                        <span class="spinner hidden"></span>
+                    </button>
+                    <div class="status-message"></div>
+                    <div id="progressBarUpdate" class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="preview-container">
+                <h3>Aperçu du fichier</h3>
+                <div id="mise-a-jour-preview" class="excel-preview">
+                    <p class="preview-placeholder">Aucun fichier sélectionné</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion Coupure Section -->
+        <div id="gestion-coupure-section" class="section-container" style="display: none;">
+            <h2>Gestion Coupure</h2>
+            <div class="upload-container">
+                <form id="creanceForm" action="/process-creance" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="creanceFile">Sélectionner fichier créance:</label>
+                        <input type="file" id="creanceFile" name="files" accept=".xlsx,.xls,.csv" required>
+                    </div>
+                    <button type="submit" class="btn-process">
+                        <span class="btn-text">Traiter les fichiers</span>
+                        <span class="spinner hidden"></span>
+                    </button>
+                    <div class="status-message"></div>
+                    <div id="progressBarCreance" class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="preview-container">
+                <h3>Aperçu du fichier</h3>
+                <div id="gestion-coupure-preview" class="excel-preview">
+                    <p class="preview-placeholder">Aucun fichier sélectionné</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Default Welcome Message -->
+        <div id="welcome-section">
+            <h1>Bienvenue à l'application de gestion</h1>
+            <p>Sélectionnez une option dans la barre de navigation pour commencer</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
